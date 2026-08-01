@@ -96,5 +96,20 @@ def deleteFirst(self,data):
 
 ##Delete Last
 
+public void deleteLast(){
+    if(head==null)&&(head.next==null){
+        System.out.println("List is empty);
+        return;
+    }
 
+    Node secondLast = head;
+    Node Last = head.next;
+
+    while(Last.next != null){
+        Last = Last.next;
+        secondLast = secondLast.next;
+        
+    }
+    secondLast.next = null;
+}
 
