@@ -68,5 +68,33 @@ def insert_at_last(self,data):
 
 
 
-    
+##delete at first
+
+public void deleteFirst(string data){
+
+    if(head == null){
+        System.out.println("List is empty);
+    }
+
+    head = head.next;
+}
+
+
+(python)
+
+def deleteFirst(self,data):
+
+    # If the list is empty
+    if self.head is None:
+      print("Linked List is Empty")
+      return
+
+
+    # Move head to the next node
+    self.head = self.head.next
+
+
+##Delete Last
+
+
 
