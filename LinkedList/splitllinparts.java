@@ -1,5 +1,6 @@
 class Solution {
     public ListNode[] splitListToParts(ListNode head, int k) {
+        ListNode[] result = new ListNode[k];
         int length = 0;
         ListNode curr = head;
         while(curr!=null){
