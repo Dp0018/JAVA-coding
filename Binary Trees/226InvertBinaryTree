@@ -1,0 +1,21 @@
+class Solution {
+
+    public TreeNode invertTree(TreeNode root) {
+
+        if (root == null) {
+            return null;
+        }
+
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+
+        invertTree(root.left);
+        invertTree(root.right);
+
+        return root;
+    }
+}
+
+//"I recursively traverse the tree. At each node, I swap its left and right children, then recursively invert the two resulting subtrees. 
+// If the node is null, I return null. Since every node is visited once, the time complexity is O(n), and the recursion stack uses O(h) space."

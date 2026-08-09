@@ -17,7 +17,7 @@ class Solution {
             return false;
         }
 
-        // Compare left and right subtrees
+        // Compare left and right subtrees :"The two trees are the same only if their left subtrees are the same AND their right subtrees are the same."
         return isSameTree(p.left, q.left)
                 && isSameTree(p.right, q.right);
     }
@@ -26,3 +26,6 @@ class Solution {
 
 Both have the same structure.
 Corresponding nodes have the same values.
+
+
+
