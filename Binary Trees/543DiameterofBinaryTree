@@ -28,3 +28,10 @@ class Solution {
 
 The diameter is the longest path between any two nodes in the tree.
 The answer is measured in number of edges, not number of nodes.
+
+
+"I use a bottom-up DFS approach. For each node, I recursively calculate the height of its left and right subtrees. 
+A path passing through the current node has length equal to the left height plus the right height, so I update a global maximum diameter with that value.
+ Then I return the height of the current node to its parent using one plus the maximum of the left and right heights."
+ "Each node is visited exactly once, so the time complexity is O(n). 
+ The recursion stack uses O(h) space, where h is the height of the tree."
