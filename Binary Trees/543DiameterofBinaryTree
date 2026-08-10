@@ -1,0 +1,30 @@
+class Solution {
+
+    int diameter = 0;
+
+    public int diameterOfBinaryTree(TreeNode root) {
+
+        height(root);
+
+        return diameter;
+    }
+
+    private int height(TreeNode root) {
+
+        if (root == null) {
+            return 0;
+        }
+
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+
+        // Diameter passing through current node
+        diameter = Math.max(diameter, leftHeight + rightHeight);
+
+        // Return height to parent
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
+}
+
+The diameter is the longest path between any two nodes in the tree.
+The answer is measured in number of edges, not number of nodes.

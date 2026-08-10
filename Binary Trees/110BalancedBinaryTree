@@ -41,6 +41,6 @@ class Solution {
     }
 }
 
-A binary tree is balanced if, for every node:
-
-The height difference between its left and right subtrees is at most 1.
+// A binary tree is balanced if, for every node:
+//
+// The height difference between its left and right subtrees is at most 1.
