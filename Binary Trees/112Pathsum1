@@ -1,0 +1,26 @@
+class Solution {
+
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+
+        if (root == null) {
+            return false;
+        }
+
+        // Check if current node is a leaf
+        if (root.left == null && root.right == null) {
+            return targetSum == root.val;
+        }
+
+        // Subtract current value from target
+        int remainingSum = targetSum - root.val;
+
+        return hasPathSum(root.left, remainingSum)
+                || hasPathSum(root.right, remainingSum);
+    }
+}
+
+//I use DFS recursion. At each node, I subtract its value from the target sum, which gives me the remaining sum needed from the rest of the path. 
+//When I reach a leaf node, I check whether the remaining sum equals the leaf's value.
+//I recursively check both the left and right subtrees, and return true if either subtree contains a valid root-to-leaf path."
+
+//"The time complexity is O(n) because each node can be visited once. The space complexity is O(h) due to the recursion stack, where h is the height of the tree."
