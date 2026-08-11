@@ -1,0 +1,40 @@
+class Solution {
+
+    public boolean isSymmetric(TreeNode root) {
+
+        if (root == null) {
+            return true;
+        }
+
+        return isMirror(root.left, root.right);
+    }
+
+    private boolean isMirror(TreeNode left, TreeNode right) {
+
+        // Both are empty
+        if (left == null && right == null) {
+            return true;
+        }
+
+        // One is empty
+        if (left == null || right == null) {
+            return false;
+        }
+
+        // Values are different
+        if (left.val != right.val) {
+            return false;
+        }
+
+        // Compare mirror positions
+        return isMirror(left.left, right.right)
+                && isMirror(left.right, right.left);
+    }
+}
+
+//"I solve this using recursion.
+//A tree is symmetric if its left and right subtrees are mirror images. 
+ //I compare the left subtree with the right subtree.
+ //For each pair of nodes, their values must be equal, and their children must be compared in opposite directions: the left child of the left subtree with the right child of the right subtree, and the right child of the left subtree with the left child of the right subtree."
+ //"Both mirror comparisons must be true, so I use AND. 
+ // If either side is different, the entire tree is not symmetric."
