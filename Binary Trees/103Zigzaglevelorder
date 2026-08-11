@@ -1,0 +1,55 @@
+class Solution {
+
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+
+        List<List<Integer>> result = new ArrayList<>();
+
+        if (root == null) {
+            return result;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        boolean leftToRight = true; //This tells us the direction of the current level.
+        //After every level, we will switch it.
+
+        while (!queue.isEmpty()) {
+
+            int levelSize = queue.size();
+
+            List<Integer> currentLevel = new ArrayList<>();
+
+            for (int i = 0; i < levelSize; i++) {
+
+                TreeNode current = queue.poll();
+
+                if (leftToRight) {
+                    currentLevel.add(current.val);
+                } else {
+                    currentLevel.add(0, current.val);
+                }
+
+                if (current.left != null) {
+                    queue.add(current.left);
+                }
+
+                if (current.right != null) {
+                    queue.add(current.right);
+                }
+            }
+
+            result.add(currentLevel);
+
+            leftToRight = !leftToRight;
+        }
+
+        return result;
+    }
+}
+
+//"I use BFS with a queue, just like normal level order traversal. 
+// I process the tree one level at a time using levelSize.
+//  I maintain a boolean leftToRight. When it is true, I add values normally. 
+// When it is false, I insert each value at index zero to reverse that level.
+//  After completing each level, I toggle the boolean so the direction changes for the next level."
