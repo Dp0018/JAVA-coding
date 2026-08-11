@@ -39,3 +39,5 @@ class Solution {
 }
 
 //You can see only one node from each level — specifically, the rightmost node.
+//Every node is visited once, so the time complexity is O(n). 
+// The queue can contain O(n) nodes in the worst case, so the space complexity is O(n)."
