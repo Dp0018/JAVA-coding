@@ -1,0 +1,29 @@
+class Solution {
+
+    public int sumNumbers(TreeNode root) {
+        return dfs(root, 0);
+    }
+
+    private int dfs(TreeNode root, int currentNumber) {
+
+        if (root == null) {
+            return 0;
+        }
+
+        currentNumber = currentNumber * 10 + root.val;
+
+        if (root.left == null && root.right == null) {
+            return currentNumber;
+        }
+
+        return dfs(root.left, currentNumber)
+             + dfs(root.right, currentNumber);
+    }
+}
+
+//"I use DFS and maintain the number formed by the current root-to-node path
+//At each node, I multiply the current number by 10 and add the current node's value.
+//When I reach a leaf node, the number is complete, so I return it.
+//Then I recursively calculate the sum from the left and right subtrees."
+//tc: O(n) where n is the number of nodes in the tree
+//sc: O(h) where h is the height of the tree
