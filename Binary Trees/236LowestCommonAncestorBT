@@ -1,0 +1,35 @@
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+
+        // Base case
+        if (root == null || root == p || root == q) {
+            return root;
+        }
+
+        // Search in left subtree
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+
+        // Search in right subtree
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+        // p and q are on different sides
+        if (left != null && right != null) {
+            return root;
+        }
+
+        // Return whichever side found p or q
+        if (left != null) {
+            return left;
+        }
+
+        return right;
+    }
+}
+
+I use recursive DFS.
+ At every node, I first check whether the node is null, p, or q. If it is p or q, I return that node.
+ Then I recursively search the left and right subtrees.
+ If both left and right return a non-null node, it means p and q were found on different sides, so the current node is their LCA.
+ If only one side returns a non-null node, I return that side because both nodes must be somewhere in that subtree."
+ Time:  O(n)
+Space: O(h)

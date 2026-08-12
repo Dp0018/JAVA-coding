@@ -16,9 +16,9 @@ class Solution {
 
         while (!queue.isEmpty()) {
 
-            int levelSize = queue.size();
+            int levelSize = queue.size(); //number of nodes in current level
 
-            List<Integer> currentLevel = new ArrayList<>();
+            List<Integer> currentLevel = new ArrayList<>(); //This stores the values for the current level.
 
             for (int i = 0; i < levelSize; i++) {
 

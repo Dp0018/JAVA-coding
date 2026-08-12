@@ -38,3 +38,5 @@ class Solution {
  //For each pair of nodes, their values must be equal, and their children must be compared in opposite directions: the left child of the left subtree with the right child of the right subtree, and the right child of the left subtree with the left child of the right subtree."
  //"Both mirror comparisons must be true, so I use AND. 
  // If either side is different, the entire tree is not symmetric."
+// Time:  O(n)
+//Space: O(h)
