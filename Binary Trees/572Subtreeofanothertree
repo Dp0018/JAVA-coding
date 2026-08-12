@@ -1,0 +1,56 @@
+class Solution {
+
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+
+        // If root is null, there is no subtree
+        if (root == null) {
+            return false;
+        }
+
+        // Check if trees starting here are identical
+        if (isSameTree(root, subRoot)) {
+            return true;
+        }
+
+        // Search in left subtree
+        if (isSubtree(root.left, subRoot)) {
+            return true;
+        }
+
+        // Search in right subtree.Finally, I search the right subtree. I return whatever result the recursive call gives me. If it finds the subtree, it returns true; otherwise it returns false."
+        return isSubtree(root.right, subRoot);
+    }
+
+    private boolean isSameTree(TreeNode root, TreeNode subRoot) {
+
+        // Both are null
+        if (root == null && subRoot == null) {
+            return true;
+        }
+
+        // One is null and the other isn't
+        if (root == null || subRoot == null) {
+            return false;
+        }
+
+        // Values are different
+        if (root.val != subRoot.val) {
+            return false;
+        }
+
+        // Check left and right subtrees
+        return isSameTree(root.left, subRoot.left)
+                && isSameTree(root.right, subRoot.right);
+    }
+}
+
+//"I solve this using DFS and recursion. 
+// The main idea is that for every node in the main tree, I check whether the tree starting from that node is exactly the same as subRoot.
+//I use two functions. The first function, isSubtree, searches through the main tree.
+//The second function, isSameTree, checks whether two trees are identical by comparing their values and recursively comparing their left and right children.
+//If the current trees are identical, I return true.
+//Otherwise, I search the left subtree and then the right subtree. If neither contains subRoot, I return false."
+
+//Time:  O(N × M)
+//Space: O(N + M) worst case
+//where N is the number of nodes in root and M is the number of nodes in subRoot.
