@@ -1,0 +1,40 @@
+class Solution {
+
+    int maxSum = Integer.MIN_VALUE;
+
+    public int maxPathSum(TreeNode root) {
+
+        maxGain(root);
+
+        return maxSum;
+    }
+
+    private int maxGain(TreeNode node) {
+
+        if (node == null) {
+            return 0;
+        }
+
+        // Maximum contribution from left subtree
+        int leftGain = Math.max(0, maxGain(node.left));
+
+        // Maximum contribution from right subtree
+        int rightGain = Math.max(0, maxGain(node.right));
+
+        // Path passing through current node
+        int currentPath = node.val + leftGain + rightGain;
+
+        // Update global maximum
+        maxSum = Math.max(maxSum, currentPath);
+
+        // Return maximum path going upward
+        return node.val + Math.max(leftGain, rightGain);
+    }
+}
+
+I use postorder DFS. For each node, I calculate the maximum gain from its left and right subtrees. 
+Negative gains are ignored because they would reduce the path sum. 
+I then calculate a path passing through the current node as node.val + leftGain + rightGain and update a global maximum. 
+However, when returning to the parent, I can only return one side, so I return node.val + max(leftGain, rightGain).
+time complexity is O(n) because each node is visited once.
+space complexity is O(h) due to the recursion stack, where h is the height of the
