@@ -1,0 +1,66 @@
+public class Codec {
+
+    // Serialize
+    public String serialize(TreeNode root) {
+
+        StringBuilder sb = new StringBuilder();
+
+        serializeHelper(root, sb);
+
+        return sb.toString();
+    }
+
+    private void serializeHelper(TreeNode root, StringBuilder sb) {
+
+        if (root == null) {
+            sb.append("null,");
+            return;
+        }
+
+        sb.append(root.val).append(",");
+
+        serializeHelper(root.left, sb);
+
+        serializeHelper(root.right, sb);
+    }
+
+
+    // Deserialize
+    public TreeNode deserialize(String data) {
+
+        String[] values = data.split(",");
+
+        Queue<String> queue = new LinkedList<>();
+
+        for (String value : values) {
+            queue.offer(value);
+        }
+
+        return deserializeHelper(queue);
+    }
+
+    private TreeNode deserializeHelper(Queue<String> queue) {
+
+        String value = queue.poll();
+
+        if (value.equals("null")) {
+            return null;
+        }
+
+        TreeNode root = new TreeNode(Integer.parseInt(value));
+
+        root.left = deserializeHelper(queue);
+
+        root.right = deserializeHelper(queue);
+
+        return root;
+    }
+}
+
+//"I use preorder traversal for serialization. 
+// For every node, I store its value, and for null children I store a special null marker. 
+// This preserves both the values and the structure of the tree. 
+// During deserialization, I read the values in the same preorder order using a queue.
+//  When I encounter null, I return null; otherwise I create a node and recursively construct its left and right children."
+//Time complexity is O(n) because each node is visited once during both serialization and deserialization.
+//Space complexity is O(n) for the queue used in deserialization and the string builder used in serialization.
