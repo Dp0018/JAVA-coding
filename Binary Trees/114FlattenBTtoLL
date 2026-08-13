@@ -1,0 +1,32 @@
+class Solution {
+
+    public void flatten(TreeNode root) {
+
+        if (root == null) {
+            return;
+        }
+
+        flatten(root.left);
+
+        flatten(root.right);
+
+        TreeNode rightSubtree = root.right;
+
+        root.right = root.left;
+
+        root.left = null;
+
+        TreeNode current = root;
+
+        while (current.right != null) {
+            current = current.right;
+        }
+
+        current.right = rightSubtree;
+    }
+}
+//The flattened tree must follow preorder traversal. 
+// I recursively flatten the left and right subtrees. 
+// Then I save the original right subtree, move the flattened left subtree to the right, set the left pointer to null, and finally attach the original right subtree to the end of the flattened left subtree."
+//time complexity is O(n) because each node is visited once.
+//space complexity is O(h) due to the recursion stack, where h is the height of the tree.
