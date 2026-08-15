@@ -22,3 +22,11 @@ class Solution {
 
 //Time: O(h) where h is the height of the tree
 //Space: O(h) because of recursion
+
+//Normal Binary Tree
+
+//"I don't know where the nodes are, so I may need to search both subtrees."
+
+BST
+
+//"I can compare the values and immediately know whether to go left or right."
