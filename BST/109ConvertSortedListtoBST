@@ -1,0 +1,132 @@
+class Solution {
+    public TreeNode sortedListToBST(ListNode head) {
+
+        // Empty list
+        if (head == null) {
+            return null;
+        }
+
+        // One node
+        if (head.next == null) {
+            return new TreeNode(head.val);
+        }
+
+        // Find middle node
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode prev = null;
+
+        while (fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Disconnect left half from middle
+        prev.next = null;
+
+        // slow is the middle node
+        TreeNode root = new TreeNode(slow.val);
+
+        // Build left subtree
+        root.left = sortedListToBST(head);
+
+        // Build right subtree
+        root.right = sortedListToBST(slow.next);
+
+        return root;
+    }
+}
+//Important: What is prev doing?
+
+We also have:
+
+ListNode prev = null;
+
+Inside the loop:
+
+prev = slow;
+slow = slow.next;
+fast = fast.next.next;
+
+When slow reaches 0:
+
+prev
+ ↓
+-3 → 0 → 5
+     ↑
+    slow
+
+We then do:
+
+prev.next = null;
+
+This disconnects the left half:
+
+-10 → -3 → null
+
+
+0 → 5 → 9
+
+Why?
+
+Because we want to recursively process the left half separately.
+
+Creating the root
+TreeNode root = new TreeNode(slow.val);
+
+Since:
+
+slow.val = 0
+
+we get:
+
+        0
+Build the left subtree
+root.left = sortedListToBST(head);
+
+head still points to:
+
+-10 → -3
+
+So recursively:
+
+-10 → -3
+
+becomes:
+
+   -3
+   /
+ -10
+Build the right subtree
+root.right = sortedListToBST(slow.next);
+
+slow is 0.
+
+So:
+
+slow.next = 5
+
+Therefore we process:
+
+5 → 9
+
+which becomes:
+
+5
+ \
+  9
+
+Final tree:
+
+        0
+       / \
+     -3   5
+    /      \
+  -10       9
+
+This is a valid height-balanced BST.
+
+//Because a linked list doesn't support random access, I use slow and fast pointers to find the middle node. The middle becomes the root of the BST. I disconnect the left half and recursively convert the left and right halves into subtrees. This produces a height-balanced BST."
+//Time: O(n) where n is the number of nodes in the linked list
+//Space: O(log n) for the recursion stack in a balanced tree, O(n) for a skewed tree
