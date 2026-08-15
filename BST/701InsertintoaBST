@@ -1,0 +1,25 @@
+class Solution {
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+
+        // If we reach an empty position,
+        // insert the new node here
+        if (root == null) {
+            return new TreeNode(val);
+        }
+
+        // Go to the left subtree
+        if (val < root.val) {
+            root.left = insertIntoBST(root.left, val);
+        }
+
+        // Go to the right subtree
+        else if (val > root.val) {
+            root.right = insertIntoBST(root.right, val);
+        }
+
+        return root;
+    }
+}
+//"I use the BST property to move left when the value is smaller and right when it is larger, and when I reach a null position, I insert the new node there."
+//tc: O(h) where h is the height of the tree
+//sc: O(h) because of recursion
