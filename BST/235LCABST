@@ -1,0 +1,24 @@
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+
+        // Both p and q are smaller than root
+        if (p.val < root.val && q.val < root.val) {
+            return lowestCommonAncestor(root.left, p, q);
+        }
+
+        // Both p and q are greater than root
+        if (p.val > root.val && q.val > root.val) {
+            return lowestCommonAncestor(root.right, p, q);
+        }
+
+        // They are on different sides, or root is p or q
+        return root;
+    }
+}
+
+//Because this is a BST, I can use the values of p and q to decide where to search.
+//  If both nodes are smaller than the current node, the LCA must be in the left subtree. If both are larger, it must be in the right subtree.
+//  Otherwise, the current node is where the paths split, so it is the Lowest Common Ancestor."
+
+//Time: O(h) where h is the height of the tree
+//Space: O(h) because of recursion
