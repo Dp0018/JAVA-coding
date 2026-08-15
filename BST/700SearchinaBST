@@ -1,0 +1,30 @@
+class Solution {
+    public TreeNode searchBST(TreeNode root, int val) {
+        
+        // Value not found
+        if (root == null) {
+            return null;
+        }
+
+        // Value found
+        if (root.val == val) {
+            return root;
+        }
+
+        // Search in left subtree
+        if (val < root.val) {
+            return searchBST(root.left, val);
+        }
+
+        // Search in right subtree
+        return searchBST(root.right, val);
+    }
+}
+//Time: O(h) where h is the height of the tree
+//Space: O(h) because of recursion
+
+//"Because this is a Binary Search Tree, I don't need to traverse every node. 
+// If the target is smaller than the current node, I move to the left subtree; if it's larger, I move to the right subtree.
+//  When I find the target, I return that node.
+//  If I reach null, the target doesn't exist."
+
