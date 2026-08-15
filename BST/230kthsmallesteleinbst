@@ -27,3 +27,8 @@ class solution{
         inorder(node.right, k);
     }
 }
+
+//Time: O(h + k) where h is the height of the tree and k is the number of nodes visited until we find the kth smallest element
+//Space: O(h) where h is the height of the tree due to recursion stack
+
+//"To find the kth smallest element in a BST, I perform an inorder traversal, which visits nodes in sorted order. I keep a count of the nodes visited, and when the count reaches k, I record the value of that node as the result."
