@@ -1,0 +1,275 @@
+class Solution {
+    public TreeNode deleteNode(TreeNode root, int key) {
+
+        if (root == null) {
+            return null;
+        }
+
+        if (key < root.val) {
+            root.left = deleteNode(root.left, key);
+        }
+
+        else if (key > root.val) {
+            root.right = deleteNode(root.right, key);
+        }
+
+        else {
+
+            if (root.left == null) {
+                return root.right;
+            }
+
+            if (root.right == null) {
+                return root.left;
+            }
+
+            TreeNode successor = root.right;
+
+            while (successor.left != null) {
+                successor = successor.left;
+            }
+
+            root.val = successor.val;
+
+            root.right = deleteNode(root.right, successor.val);
+        }
+
+        return root;
+    }
+}
+## LeetCode 450 — Delete Node in a BST
+
+This is an **important BST interview problem** because deletion has **3 cases**.
+
+### The 3 Cases
+
+Suppose we want to delete `key`.
+
+**Case 1: Node is a leaf**
+
+```text
+    5
+   /
+  3   ← delete
+```
+
+Simply remove it.
+
+**Case 2: Node has one child**
+
+```text
+    5
+   /
+  3
+ /
+2
+```
+
+Replace `3` with its child `2`.
+
+**Case 3: Node has two children**
+
+```text
+      5
+     / \
+    3   7
+       / \
+      6   8
+```
+
+If deleting `7`, we can replace it with its **inorder successor**, which is the smallest value in its right subtree → `8`.
+
+---
+
+## Java Solution
+
+```java
+class Solution {
+    public TreeNode deleteNode(TreeNode root, int key) {
+
+        // Key not found
+        if (root == null) {
+            return null;
+        }
+
+        // Search in the left subtree
+        if (key < root.val) {
+            root.left = deleteNode(root.left, key);
+        }
+
+        // Search in the right subtree
+        else if (key > root.val) {
+            root.right = deleteNode(root.right, key);
+        }
+
+        // We found the node
+        else {
+
+            // Case 1: No left child
+            if (root.left == null) {
+                return root.right;
+            }
+
+            // Case 2: No right child
+            if (root.right == null) {
+                return root.left;
+            }
+
+            // Case 3: Two children
+            // Find inorder successor
+            TreeNode successor = root.right;
+
+            while (successor.left != null) {
+                successor = successor.left;
+            }
+
+            // Copy successor's value
+            root.val = successor.val;
+
+            // Delete the successor
+            root.right = deleteNode(root.right, successor.val);
+        }
+
+        return root;
+    }
+}
+```
+
+---
+
+## Let's understand the important part
+
+Suppose we have:
+
+```text
+        5
+       / \
+      3   7
+         / \
+        6   8
+```
+
+We want to delete `7`.
+
+We find:
+
+```java
+else {
+```
+
+The node `7` has **both left and right children**.
+
+So:
+
+```java
+TreeNode successor = root.right;
+```
+
+`successor` starts at `8`.
+
+Then:
+
+```java
+while (successor.left != null) {
+    successor = successor.left;
+}
+```
+
+If the tree was:
+
+```text
+       7
+      / \
+     6   10
+        /
+       8
+```
+
+The successor would be `8`, because it is the **smallest node in the right subtree**.
+
+Then:
+
+```java
+root.val = successor.val;
+```
+
+We replace `7` with `8`.
+
+```text
+        5
+       / \
+      3   8
+         / \
+        6   8
+```
+
+Now we have a duplicate `8`, so:
+
+```java
+root.right = deleteNode(root.right, successor.val);
+```
+
+removes the original `8`.
+
+Final tree:
+
+```text
+        5
+       / \
+      3   8
+         /
+        6
+```
+
+---
+
+## Why use Inorder Successor?
+
+For a BST:
+
+```text
+Left < Root < Right
+```
+
+The **inorder successor** is the smallest value greater than the current node.
+
+Therefore, replacing the deleted node with its inorder successor keeps the BST property valid.
+
+### Alternative
+
+You can also use the **inorder predecessor**:
+
+> Largest value in the left subtree.
+
+Both approaches are valid.
+
+---
+
+## Complexity
+
+Let `h` = height of the BST.
+
+* **Time:** `O(h)`
+* **Space:** `O(h)` due to recursion
+
+For a balanced BST:
+
+```text
+Time:  O(log n)
+Space: O(log n)
+```
+
+For a skewed BST:
+
+```text
+Time:  O(n)
+Space: O(n)
+```
+
+### Interview answer
+
+// "First, I search for the node using the BST property.
+ //Once found, if it has zero or one child, I can directly replace it with its existing child or null.
+  //If it has two children, I find the inorder successor—the smallest node in the right subtree—copy its value into the current node, and then delete the successor."
+//tc: O(h) where h is the height of the tree
+//sc: O(h) because of recursion
