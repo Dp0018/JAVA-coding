@@ -1,0 +1,24 @@
+class Solution{
+    public TreeNode inorderSuccessor(TreeNode root , TreeNode p){
+        TreeNode successor = null;
+
+        while(root!=null){
+            if(p.val < root.val){
+                successor = root;
+                root = root.right;
+            }else{
+                root = root.left;
+            }
+
+        }     return successor;
+
+    }
+}
+
+//The inorder successor is the smallest node whose value is greater than the target node.
+//  Since this is a BST, if p.val < root.val, the current root is a possible successor, but there might be a smaller successor in the left subtree, so I save it and move left.
+//  If p.val >= root.val, the current node cannot be the successor, so I move right.
+//  When the traversal ends, the saved node is the successor."
+
+//Time: O(h) where h is the height of the tree
+//Space: O(1) since we are using an iterative approach

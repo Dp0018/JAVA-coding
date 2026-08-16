@@ -1,0 +1,89 @@
+class Solution {
+
+    public int rangeSumBST(TreeNode root, int low, int high) {
+
+        if (root == null) {
+            return 0;
+        }
+
+        // Root is smaller than the range ,gor right subtree
+        if (root.val < low) {
+            return rangeSumBST(root.right, low, high);
+        }
+
+        // Root is larger than the range, go left subtree
+        if (root.val > high) {
+            return rangeSumBST(root.left, low, high);
+        }
+
+        // Root is inside the range,go left and right subtree
+        return root.val
+                + rangeSumBST(root.left, low, high)
+                + rangeSumBST(root.right, low, high);
+    }
+}
+
+//Since this is a BST, I can use the ordering property to prune unnecessary subtrees.
+// If the current node is smaller than low, its entire left subtree is also too small, so I only search the right subtree.
+// If the current node is greater than high, its entire right subtree is too large, so I only search the left subtree. 
+// If the node is inside the range, I add its value and search both subtrees."
+
+//Time: O(n) where n is the number of nodes in the BST
+//Space: O(h) where h is the height of the BST due to recursion stack
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//🔥 The Three Cases
+
+This is what you should remember for the interview.
+
+Case 1 — Too small
+if (root.val < low) {
+    return rangeSumBST(root.right, low, high);
+}
+
+Because:
+
+root < low
+
+and everything on the left is even smaller.
+
+➡️ Go right.
+
+Case 2 — Too large
+if (root.val > high) {
+    return rangeSumBST(root.left, low, high);
+}
+
+Because:
+
+root > high
+
+and everything on the right is even larger.
+
+➡️ Go left.
+
+Case 3 — Inside range
+return root.val
+        + rangeSumBST(root.left, low, high)
+        + rangeSumBST(root.right, low, high);
+
+The root qualifies.
+
+➡️ Add it and check both sides.
