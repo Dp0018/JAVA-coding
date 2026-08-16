@@ -1,0 +1,27 @@
+class Solution {
+
+    public int minDepth(TreeNode root) {
+
+        // Empty tree
+        if (root == null) {
+            return 0;
+        }
+
+        // If only right child exists
+        if (root.left == null) {
+            return 1 + minDepth(root.right);
+        }
+
+        // If only left child exists
+        if (root.right == null) {
+            return 1 + minDepth(root.left);
+        }
+
+        // Both children exist
+        return 1 + Math.min(
+            minDepth(root.left),
+            minDepth(root.right)
+        );
+    }
+}
+//I recursively calculate the minimum depth of the left and right subtrees. However, I cannot simply take the minimum when one child is null, because a null subtree is not a valid path to a leaf. If one child is missing, I must go through the existing child. If both children exist, I take the smaller depth and add one for the current node."
