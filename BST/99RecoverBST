@@ -1,0 +1,154 @@
+class Solution {
+
+    TreeNode first = null;
+    TreeNode second = null;
+    TreeNode previous = null;
+
+    public void recoverTree(TreeNode root) {
+
+        inorder(root);
+
+        // Swap the two incorrect values
+        int temp = first.val;
+        first.val = second.val;
+        second.val = temp;
+    }
+
+    private void inorder(TreeNode root) {
+
+        if (root == null) {
+            return;
+        }
+
+        // Visit left subtree
+        inorder(root.left);
+
+        // Check BST violation
+        if (previous != null && previous.val > root.val) {
+
+            if (first == null) {
+                first = previous;
+            }
+
+            second = root;
+        }
+
+        previous = root;
+
+        // Visit right subtree
+        inorder(root.right);
+    }
+}
+
+//"A valid BST produces a sorted sequence during inorder traversal. Since exactly two nodes are swapped, the inorder traversal will contain one or two ordering violations where the previous value is greater than the current value. I identify the first incorrect node from the first violation and keep updating the second incorrect node whenever I find a violation. Finally, I swap the values of those two nodes to restore the BST."
+//Time: O(n) where n is the number of nodes in the BST
+//Space: O(h) where h is the height of the BST due to recursion stack
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Let's Understand With Example
+
+Suppose the BST is:
+
+        3
+       / \
+      1   4
+         /
+        2
+
+Inorder traversal:
+
+1 → 3 → 2 → 4
+
+We compare each node with the previous node.
+
+Step 1
+previous = null
+current = 1
+
+Nothing to compare.
+
+Set:
+
+previous = 1
+Step 2
+
+Current:
+
+3
+
+Compare:
+
+1 > 3 ❌
+
+No problem.
+
+previous = 3
+Step 3 — Important
+
+Current:
+
+2
+
+Previous:
+
+3
+
+Compare:
+
+3 > 2 ✅
+
+We found a violation.
+
+if (first == null) {
+    first = previous;
+}
+
+So:
+
+first = 3
+
+And:
+
+second = root;
+
+So:
+
+second = 2
+Step 4
+
+Current:
+
+4
+
+Compare:
+
+2 > 4 ❌
+
+No violation.
+
+Final:
+
+first = 3
+second = 2
+
+Swap their values:
+
+3 ↔ 2
+
+Correct inorder:
+
+1 → 2 → 3 → 4
+
+BST recovered.
