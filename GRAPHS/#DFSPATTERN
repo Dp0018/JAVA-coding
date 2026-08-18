@@ -1,0 +1,32 @@
+void dfs(
+    List<List<Integer>> graph,
+    int node,
+    boolean[] visited
+) {
+
+    visited[node] = true;
+
+    for (int neighbor : graph.get(node)) {
+
+        if (!visited[neighbor]) {
+
+            dfs(graph, neighbor, visited);
+        }
+    }
+}
+
+DFS(node)
+   ↓
+Mark node visited
+   ↓
+Look at neighbors
+   ↓
+If neighbor not visited
+   ↓
+DFS(neighbor)
+   ↓
+Go deeper
+   ↓
+No more neighbors?
+   ↓
+Backtrack
