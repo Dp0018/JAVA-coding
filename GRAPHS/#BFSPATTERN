@@ -1,0 +1,41 @@
+Queue<Integer> queue = new LinkedList<>();
+
+boolean[] visited = new boolean[n];
+
+queue.add(start);
+visited[start] = true;
+
+while (!queue.isEmpty()) {
+
+    int node = queue.poll();
+
+    for (int neighbor : graph.get(node)) {
+
+        if (!visited[neighbor]) {
+
+            visited[neighbor] = true;
+            queue.add(neighbor);
+        }
+    }
+}
+
+START
+  ↓
+Put node in Queue
+  ↓
+Mark visited
+  ↓
+Take node from Queue
+  ↓
+Get its neighbors
+  ↓
+If not visited
+  ↓
+Mark visited
+  ↓
+Put neighbor in Queue
+  ↓
+Repeat
+
+
+
