@@ -34,3 +34,6 @@ public class connectedComponents{
 //  I'll use DFS with a visited array. I'll iterate through every node, and whenever I find an unvisited node, that means I've discovered a new connected component. 
 // I'll increment the count and run DFS from that node.
 //  The DFS will mark every node belonging to that component as visited, so I won't count the same component again."
+
+//time complexity: O(V+E) where V is the number of vertices and E is the number of edges in the graph. This is because we visit each vertex and edge once during the DFS traversal.
+//space complexity: O(V) for the visited array and the recursion stack in the worst case.
