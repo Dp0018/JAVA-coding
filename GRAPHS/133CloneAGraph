@@ -1,0 +1,54 @@
+class Solution {
+
+    private Map<Node, Node> map = new HashMap<>();
+
+    public Node cloneGraph(Node node) {
+
+        if (node == null) {
+            return null;
+        }
+
+        // Already cloned
+        if (map.containsKey(node)) {
+            return map.get(node);
+        }
+
+        // Create clone
+        Node clone = new Node(node.val);
+
+        // Store original -> clone
+        map.put(node, clone);
+
+        // Clone all neighbors
+        for (Node neighbor : node.neighbors) {
+
+            clone.neighbors.add(cloneGraph(neighbor));
+        }
+
+        return clone;
+    }
+} 
+//"I'll use DFS along with a HashMap. 
+// The HashMap will maintain a mapping between each original node and its cloned node.
+//  When I encounter a node, I first check whether it has already been cloned. 
+// If it has, I return the existing clone. 
+// Otherwise, I create a new node with the same value, store the mapping before processing its neighbors, and recursively clone all its neighbors. 
+// This also handles cycles because an already visited node will be retrieved from the HashMap instead of being cloned again."
+
+//Have I cloned this node?
+       ↓
+     YES → return existing clone
+       ↓
+      NO
+       ↓
+Create clone
+       ↓
+Put original → clone in HashMap
+       ↓
+Clone all neighbors
+       ↓
+Return clone
+
+
+//space complexity: O(N) where N is the number of nodes in the graph. This is because we store a mapping for each node in the HashMap and also create a clone for each node.
+//time complexity: O(N + E) where N is the number of nodes and E is the number of edges in the graph. This is because we visit each node and edge once during the DFS traversal.

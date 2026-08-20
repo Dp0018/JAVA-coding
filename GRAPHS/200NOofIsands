@@ -83,3 +83,12 @@ That's another island
 //"I traverse every cell in the grid. Whenever I find a land cell that is still 1, I increment the island count and start a DFS from that cell.
 //  The DFS explores all four directions and changes every connected land cell from 1 to 0, marking it as visited. 
 // Therefore, when the outer loop encounters another 1, it must belong to a different island."
+
+
+
+// I'll use DFS to count the islands. 
+// I'll traverse every cell in the grid.
+//  Whenever I find a land cell '1', that means I've discovered a new island, so I increment the count. 
+// Then I run DFS from that cell to visit all horizontally and vertically connected land cells.
+//  I mark those cells as '0' so that I don't visit the same island again. 
+// After traversing the entire grid, the count represents the number of islands."
