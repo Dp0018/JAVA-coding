@@ -1,0 +1,36 @@
+import.java.util.*;
+
+public class connectedComponents{
+
+    public static void dfs(int node, boolean[] visited, List<List<Integer>> graph){
+
+        visited[node]=true;
+        
+        for(int neighbor: graph.get(node)){
+
+            if(!visited[neighbor]){
+                dfs(neighbor, visited, graph);
+            }
+        }
+    }
+    public static int countComponents(List<List<Integer>> graph){
+        
+        int n=graph.size();
+        boolean[] visited=new boolean[n];
+        int count=0;
+
+        for(int i=0;i<n;i++){
+
+            if(!visited[i]){
+                count++;
+                dfs(i, visited, graph);
+            }
+        }
+        return count;
+    }
+}
+
+//"I want to find the number of connected components in an undirected graph.
+//  I'll use DFS with a visited array. I'll iterate through every node, and whenever I find an unvisited node, that means I've discovered a new connected component. 
+// I'll increment the count and run DFS from that node.
+//  The DFS will mark every node belonging to that component as visited, so I won't count the same component again."
