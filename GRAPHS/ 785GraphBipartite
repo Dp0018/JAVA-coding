@@ -1,0 +1,73 @@
+class Solution {
+
+    public boolean isBipartite(int[][] graph) {
+
+        int n = graph.length;
+
+        int[] color = new int[n];
+
+        for (int i = 0; i < n; i++) {
+
+            if (color[i] != 0) {
+                continue;
+            }
+
+            color[i] = 1;
+
+            if (!dfs(graph, i, color)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean dfs(int[][] graph, int node, int[] color) {
+
+        for (int neighbor : graph[node]) {
+
+            if (color[neighbor] == 0) {
+
+                color[neighbor] = 3 - color[node];
+
+                if (!dfs(graph, neighbor, color)) {
+                    return false;
+                }
+            }
+
+            else if (color[neighbor] == color[node]) {
+
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
+//"I use DFS with two-coloring. 
+// I maintain a color array where 0 means uncolored, 1 means one color, and 2 means the other color. 
+// For every uncolored node, I start DFS and assign it color 1.
+// For each neighbor, if it is uncolored, I assign it the opposite color and continue DFS. 
+// If the neighbor is already colored and has the same color as the current node, there is a conflict, so I return false. 
+// If we finish processing all components without any conflict, I return true."
+
+
+//DFS actually do?
+Start at a node
+      ↓
+Give it Blue
+      ↓
+Visit neighbors
+      ↓
+Give neighbors Red
+      ↓
+Visit their neighbors
+      ↓
+Give them Blue
+      ↓
+Continue...
+
+
+//time complexity: O(V + E) where V is the number of vertices and E is the number of edges in the graph. Each vertex and edge is processed once.
+//space complexity: O(V) for the color array and the recursion stack in the worst case.
