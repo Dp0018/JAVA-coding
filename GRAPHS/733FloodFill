@@ -1,0 +1,73 @@
+class Solution {
+
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+
+        int originalColor = image[sr][sc];
+
+        if (originalColor == color) {
+            return image;
+        }
+
+        dfs(image, sr, sc, originalColor, color);
+
+        return image;
+    }
+
+    private void dfs(
+        int[][] image,
+        int row,
+        int col,
+        int originalColor,
+        int color
+    ) {
+
+        // Outside the grid
+        if (row < 0 || row >= image.length ||
+            col < 0 || col >= image[0].length) {
+            return;
+        }
+
+        // Not the color we want to change
+        if (image[row][col] != originalColor) {
+            return;
+        }
+
+        // Change the color
+        image[row][col] = color;
+
+        // Up
+        dfs(image, row - 1, col, originalColor, color);
+
+        // Down
+        dfs(image, row + 1, col, originalColor, color);
+
+        // Left
+        dfs(image, row, col - 1, originalColor, color);
+
+        // Right
+        dfs(image, row, col + 1, originalColor, color);
+    }
+}
+
+//I use DFS starting from the given starting cell. 
+//First, I store the original color of that cell.
+//Then I change the current cell to the new color and recursively visit its four neighbors. 
+//I only continue DFS when the neighbor is inside the grid and has the original color. 
+// This allows me to change all cells connected to the starting cell that have the same original color."
+
+//time complexity: O(m * n) where m is the number of rows and n is the number of columns in the image. In the worst case, we may need to visit every cell in the image.
+//space complexity: O(m * n) in the worst case, where the entire image is filled with the original color and we need to store all cells in the recursion stack.
+
+
+//Starting cell
+     ↓
+Remember original color
+     ↓
+Change current cell
+     ↓
+Check 4 directions
+     ↓
+Same original color?
+     ↓
+YES → DFS
+NO  → Stop
