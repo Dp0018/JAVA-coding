@@ -94,6 +94,6 @@ Therefore shortest distance:
 // BFS explores the graph level by level, where each level represents the distance from the source. 
 // I use a queue to process nodes and a visited array to avoid cycles. 
 // When I first reach the destination, the current distance is guaranteed to be the shortest path."
-//Time:  O(V + E)
+//Time:  O(V + E):visiting all vertices and edges in the graph.
 
 //Space: O(V): visited array and queue can hold at most V nodes.
