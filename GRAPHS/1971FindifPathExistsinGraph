@@ -1,0 +1,73 @@
+class Solution {
+
+    public boolean validPath(
+        int n,
+        int[][] edges,
+        int source,
+        int destination
+    ) {
+
+        List<List<Integer>> graph = new ArrayList<>();
+
+        // Create empty list for every node
+        for (int i = 0; i < n; i++) {
+            graph.add(new ArrayList<>());
+        }
+
+        // Build graph
+        for (int[] edge : edges) {
+
+            int u = edge[0];
+            int v = edge[1];
+
+            graph.get(u).add(v);
+            graph.get(v).add(u);
+        }
+
+        boolean[] visited = new boolean[n];
+
+        return dfs(graph, source, destination, visited);
+    }
+
+    private boolean dfs(
+        List<List<Integer>> graph,
+        int node,
+        int destination,
+        boolean[] visited
+    ) {
+
+        // We reached destination
+        if (node == destination) {
+            return true;
+        }
+
+        visited[node] = true;
+
+        for (int neighbor : graph.get(node)) {
+
+            if (!visited[neighbor]) {
+
+                if (dfs(graph, neighbor, destination, visited)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+}
+
+
+//I first build an adjacency list from the given edges. 
+// Since the graph is undirected, I add both directions for every edge.
+//  Then I use DFS starting from the source node. 
+// I maintain a visited array to avoid cycles and repeated visits. 
+// During DFS, if the current node is equal to the destination, I return true. 
+// Otherwise, I recursively visit all unvisited neighbors. 
+// If DFS finishes without reaching the destination, I return false."
+
+//time complexity: O(N + E) where N is the number of nodes and E is the number of edges in the graph. This is because we visit each node and edge once during the DFS traversal.
+//space complexity: O(N) where N is the number of nodes in the graph. This is because we store the visited array and the recursion stack in the worst case.
+
+
+

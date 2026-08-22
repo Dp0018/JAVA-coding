@@ -96,4 +96,4 @@ Therefore shortest distance:
 // When I first reach the destination, the current distance is guaranteed to be the shortest path."
 //Time:  O(V + E)
 
-//Space: O(V)
+//Space: O(V): visited array and queue can hold at most V nodes.
