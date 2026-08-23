@@ -1,0 +1,78 @@
+import java.util.*;
+
+class Solution {
+
+    public boolean hasCycle(List<List<Integer>> graph) {
+
+        int n = graph.size();
+
+        boolean[] visited = new boolean[n];
+
+        for (int i = 0; i < n; i++) {
+
+            if (!visited[i]) {
+
+                if (dfs(graph, i, -1, visited)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean dfs(
+        List<List<Integer>> graph,
+        int node,
+        int parent,
+        boolean[] visited
+    ) {
+
+        visited[node] = true;
+
+        for (int neighbor : graph.get(node)) {
+
+            // If neighbor is not visited
+            if (!visited[neighbor]) {
+
+                if (dfs(graph, neighbor, node, visited)) {
+                    return true;
+                }
+            }
+
+            // Already visited and NOT our parent
+            else if (neighbor != parent) {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
+//I use DFS and keep track of the parent of each node. When visiting a neighbor, if the neighbor hasn't been visited, I recursively visit it and pass the current node as its parent. 
+// If the neighbor is already visited and it is not the parent, then we have found a back edge, which means there is a cycle.
+//  I repeat this for every unvisited node because the graph can be disconnected."
+
+
+//the time complexity of this algorithm is O(V + E), where V is the number of vertices and E is the number of edges in the graph. This is because we visit each vertex and edge once during the DFS traversal. The space complexity is O(V) due to the visited array and the recursion stack in the worst case.
+//space complexity is O(V) because of the visited array and the recursion stack in the worst case.
+
+DFS
+ ↓
+visited[]
+ ↓
+parent
+ ↓
+Neighbor unvisited?
+    ↓
+   YES → DFS
+    ↓
+Neighbor already visited?
+    ↓
+Is neighbor != parent?
+    ↓
+   YES
+    ↓
+CYCLE ❌
