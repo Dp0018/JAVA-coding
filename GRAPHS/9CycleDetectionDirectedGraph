@@ -1,0 +1,45 @@
+import java.util.*;
+
+class Solution{
+    public boolean hasCycle(List<List<Integer>> graph){
+        int n = graph.size();
+        boolean[] visited = new boolean[n];
+        boolean[] recStack = new boolean[n];
+
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                if (dfs(graph, i, visited, recStack)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean dfs(List<List<Integer>> graph, int node, boolean[] visited, boolean[] recStack) {
+        visited[node] = true;
+        recStack[node] = true;
+
+        for (int neighbor : graph.get(node)) {
+            if (!visited[neighbor]) {
+                if (dfs(graph, neighbor, visited, recStack)) {
+                    return true;
+                }
+            } else if (recStack[neighbor]) {
+                return true;
+            }
+        }
+
+        recStack[node] = false;
+        return false;
+    }
+}
+//I use DFS with two boolean arrays: visited and path.
+// visited tells me whether a node has ever been visited, while path tells me whether the node is currently in the active DFS path. 
+// During DFS, if I encounter an unvisited neighbor, I recursively visit it. 
+// If I encounter a neighbor that is already in the current DFS path, I have found a back edge, which means there is a cycle.
+//  After finishing a node, I remove it from the current path by setting path[node] to false."
+
+//time complexity of this algorithm is O(V + E), where V is the number of vertices and E is the number of edges in the graph. This is because we visit each vertex and edge once during the DFS traversal. 
+// The space complexity is O(V) due to the visited and path arrays, as well as the recursion stack in the worst case.
