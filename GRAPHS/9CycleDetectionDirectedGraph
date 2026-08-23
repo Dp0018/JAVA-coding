@@ -43,3 +43,9 @@ class Solution{
 
 //time complexity of this algorithm is O(V + E), where V is the number of vertices and E is the number of edges in the graph. This is because we visit each vertex and edge once during the DFS traversal. 
 // The space complexity is O(V) due to the visited and path arrays, as well as the recursion stack in the worst case.
+
+Already visited
+      ↓
+Is it in current DFS path?
+      ↓
+YES → Cycle

@@ -1,0 +1,68 @@
+//if there is a cycle, you cannot finish all courses.
+
+class Solution {
+
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+
+        List<List<Integer>> graph = new ArrayList<>();
+
+        for (int i = 0; i < numCourses; i++) {
+            graph.add(new ArrayList<>());
+        }
+
+        for (int[] prerequisite : prerequisites) {
+
+            int course = prerequisite[0];
+            int pre = prerequisite[1];
+
+            graph.get(pre).add(course);
+        }
+
+        int[] state = new int[numCourses];
+
+        for (int i = 0; i < numCourses; i++) {
+
+            if (hasCycle(graph, i, state)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean hasCycle(
+        List<List<Integer>> graph,
+        int course,
+        int[] state
+    ) {
+
+        if (state[course] == 1) {
+            return true;
+        }
+
+        if (state[course] == 2) {
+            return false;
+        }
+
+        state[course] = 1;
+
+        for (int next : graph.get(course)) {
+
+            if (hasCycle(graph, next, state)) {
+                return true;
+            }
+        }
+
+        state[course] = 2;
+
+        return false;
+    }
+}
+
+
+//I model the courses as a directed graph. 
+//For each prerequisite [course, prerequisite], I add an edge from the prerequisite to the course. 
+//Then I use DFS to detect a cycle. 
+//I maintain a state array: 0 means unvisited, 1 means currently in the DFS path, and 2 means completely processed. 
+//If I encounter a node with state 1, I've found a cycle, which means the courses cannot all be completed, so I return false. 
+//After completely processing a course, I mark it as 2. If no cycle is found, I return true."
