@@ -69,3 +69,5 @@ class Solution {
 
 //time complexity: O(V + E), where V is the number of courses and E is the number of prerequisites.
 //space complexity: O(V + E) for the graph and O(V) for the state array.
+
+//This solution is efficient and works well for the problem of determining if all courses can be finished given the prerequisites.
