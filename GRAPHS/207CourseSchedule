@@ -66,3 +66,6 @@ class Solution {
 //I maintain a state array: 0 means unvisited, 1 means currently in the DFS path, and 2 means completely processed. 
 //If I encounter a node with state 1, I've found a cycle, which means the courses cannot all be completed, so I return false. 
 //After completely processing a course, I mark it as 2. If no cycle is found, I return true."
+
+//time complexity: O(V + E), where V is the number of courses and E is the number of prerequisites.
+//space complexity: O(V + E) for the graph and O(V) for the state array.
