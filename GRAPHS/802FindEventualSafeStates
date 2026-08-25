@@ -1,0 +1,99 @@
+import java.util.*;
+
+class Solution {
+
+    public List<Integer> eventualSafeNodes(int[][] graph) {
+
+        int n = graph.length;
+
+        // Reverse graph
+        List<List<Integer>> reverseGraph = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            reverseGraph.add(new ArrayList<>());
+        }
+
+        // Outdegree
+        int[] outdegree = new int[n];
+
+        // Build reverse graph
+        for (int node = 0; node < n; node++) {
+
+            outdegree[node] = graph[node].length;
+
+            for (int neighbor : graph[node]) {
+
+                reverseGraph.get(neighbor).add(node);
+            }
+        }
+
+        // Queue terminal nodes
+        Queue<Integer> queue = new LinkedList<>();
+
+        for (int i = 0; i < n; i++) {
+
+            if (outdegree[i] == 0) {
+                queue.offer(i);
+            }
+        }
+
+        List<Integer> result = new ArrayList<>();
+
+        // BFS
+        while (!queue.isEmpty()) {
+
+            int node = queue.poll();
+
+            result.add(node);
+
+            // Nodes that point to this safe node
+            for (int previous : reverseGraph.get(node)) {
+
+                outdegree[previous]--;
+
+                if (outdegree[previous] == 0) {
+                    queue.offer(previous);
+                }
+            }
+        }
+
+        // LeetCode expects sorted order
+        Collections.sort(result);
+
+        return result;
+    }
+}
+
+//I use Kahn's topological sorting approach in reverse. 
+// A terminal node has outdegree zero, so it is always safe.
+//  I reverse all the edges and start a BFS from these terminal nodes.
+//  Whenever I process a safe node, I decrease the outdegree of every node that points to it. 
+// If a node's outdegree becomes zero, all of its outgoing paths now lead to safe nodes, 
+// so that node is also safe and I add it to the queue.
+//  Nodes that are part of cycles never reach outdegree zero and therefore are not included.
+//  Finally, I sort the safe nodes and return them."
+
+//802
+ ↓
+Terminal nodes
+ ↓
+outdegree = 0
+ ↓
+Reverse Graph
+ ↓
+Queue
+ ↓
+BFS
+ ↓
+Decrease outdegree
+ ↓
+0 → SAFE
+
+
+//Building graph: O(V + E)
+BFS:            O(V + E)
+Sorting:        O(V log V)
+
+Total:          O(V + E + V log V)
+
+Space:          O(V + E)
