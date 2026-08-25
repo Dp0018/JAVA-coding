@@ -1,0 +1,76 @@
+import java.util.*;
+
+class Solution {
+
+    public List<Integer> topologicalSort(
+        int n,
+        List<List<Integer>> graph
+    ) {
+
+        int[] indegree = new int[n];
+
+        // Calculate indegree
+        for (int i = 0; i < n; i++) {
+
+            for (int neighbor : graph.get(i)) {
+
+                indegree[neighbor]++;
+            }
+        }
+
+        Queue<Integer> queue = new LinkedList<>();
+
+        // Find nodes with indegree 0
+        for (int i = 0; i < n; i++) {
+
+            if (indegree[i] == 0) {
+                queue.offer(i);
+            }
+        }
+
+        List<Integer> result = new ArrayList<>();
+
+        // BFS
+        while (!queue.isEmpty()) {
+
+            int node = queue.poll();
+
+            result.add(node);
+
+            for (int neighbor : graph.get(node)) {
+
+                indegree[neighbor]--;
+
+                if (indegree[neighbor] == 0) {
+                    queue.offer(neighbor);
+                }
+            }
+        }
+
+        return result;
+    }
+}
+//"Topological sorting is a linear ordering of the vertices of a directed acyclic graph such that for every directed edge from u to v, u appears before v in the ordering."
+
+//I can implement it using Kahn's algorithm with indegree and a queue. 
+//I start with all nodes having indegree zero, process them, decrease the indegree of their neighbors, and add neighbors when their indegree becomes zero."
+
+//1. Calculate how many prerequisites each node has
+              ↓
+//2. Find nodes with 0 prerequisites
+              ↓
+//3. Put them in Queue
+              ↓
+//4. Take one node
+              ↓
+//5. Add it to answer
+              ↓
+//6. Remove its dependency from neighbors
+              ↓
+//7. If a neighbor now has 0 prerequisites,
+   put it in Queue
+              ↓
+//8. Repeat
+
+//time complexity: O(V + E) where V is the number of vertices and E is the number of edges.
+//space complexity: O(V + E) for the graph representation and O(V) for the indegree array and queue.
