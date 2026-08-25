@@ -1,0 +1,104 @@
+import java.util.*;
+
+class Solution {
+
+    public List<Integer> topologicalSort(
+        int n,
+        List<List<Integer>> graph
+    ) {
+
+        int[] state = new int[n];
+
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < n; i++) {
+
+            if (state[i] == 0) {
+
+                if (dfs(graph, i, state, stack)) {
+                    return new ArrayList<>();
+                }
+            }
+        }
+
+        List<Integer> result = new ArrayList<>();
+
+        while (!stack.isEmpty()) {
+
+            result.add(stack.pop());
+        }
+
+        return result;
+    }
+
+    private boolean dfs(
+        List<List<Integer>> graph,
+        int node,
+        int[] state,
+        Stack<Integer> stack
+    ) {
+
+        // Currently visiting → cycle
+        if (state[node] == 1) {
+            return true;
+        }
+
+        // Already completely visited
+        if (state[node] == 2) {
+            return false;
+        }
+
+        // Mark as currently visiting
+        state[node] = 1;
+
+        for (int neighbor : graph.get(node)) {
+
+            if (dfs(graph, neighbor, state, stack)) {
+                return true;
+            }
+        }
+
+        // Completely visited
+        state[node] = 2;
+
+        // Push after visiting all neighbors
+        stack.push(node);
+
+        return false;
+    }
+}
+
+state 0 → Not visited
+state 1 → Currently in DFS
+state 2 → Finished
+
+             DFS
+              ↓
+       Mark node = 1
+              ↓
+       Visit neighbors
+              ↓
+    state == 1? → Cycle!
+              ↓
+       Mark node = 2
+              ↓
+       push(node)
+              ↓
+       DFS finished
+              ↓
+       pop stack
+              ↓
+   Topological ordering
+
+
+
+//I use DFS with a stack. I maintain a state array with three states: 0 means unvisited, 1 means currently visiting, and 2 means completely visited.
+
+//For every unvisited node, I perform DFS. 
+//I mark the node as currently visiting and recursively visit all its neighbors. 
+//If I encounter a neighbor whose state is 1, it means that node is already in the current DFS path, so there is a cycle and topological sorting is not possible.
+
+//After all neighbors of a node are processed, I mark the node as completely visited and push it into the stack. 
+//Since a node is pushed only after all its dependencies are processed, popping the stack gives the topological ordering."
+//Time:  O(V + E)
+//Space: O(V + E)
