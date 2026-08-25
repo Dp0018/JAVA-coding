@@ -36,14 +36,16 @@ class Solution {
         int[] state
     ) {
 
-        if (state[course] == 1) {
+        if (state[course] == 1) {  // Currently in DFS path → cycle
             return true;
         }
 
-        if (state[course] == 2) {
+        if (state[course] == 2) {    // Already completely processed
             return false;
         }
 
+        
+        // Mark as currently visiting
         state[course] = 1;
 
         for (int next : graph.get(course)) {
@@ -52,7 +54,8 @@ class Solution {
                 return true;
             }
         }
-
+        
+        // Completely processed
         state[course] = 2;
 
         return false;
@@ -71,3 +74,91 @@ class Solution {
 //space complexity: O(V + E) for the graph and O(V) for the state array.
 
 //This solution is efficient and works well for the problem of determining if all courses can be finished given the prerequisites.
+
+
+
+
+import java.util.*;
+
+class Solution {
+
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+
+        // Create graph
+        List<List<Integer>> graph = new ArrayList<>();
+
+        for (int i = 0; i < numCourses; i++) {
+            graph.add(new ArrayList<>());
+        }
+
+        // Indegree
+        int[] indegree = new int[numCourses];
+
+        // Build graph and calculate indegree
+        for (int[] prerequisite : prerequisites) {
+
+            int course = prerequisite[0];
+            int pre = prerequisite[1];
+
+            graph.get(pre).add(course);
+
+            indegree[course]++;
+        }
+
+        // Queue
+        Queue<Integer> queue = new LinkedList<>();
+
+        // Add courses with no prerequisites
+        for (int i = 0; i < numCourses; i++) {
+
+            if (indegree[i] == 0) {
+                queue.offer(i);
+            }
+        }
+
+        // Count processed courses
+        int count = 0;
+
+        // BFS / Topological Sort
+        while (!queue.isEmpty()) {
+
+            int course = queue.poll();
+
+            count++;
+
+            // Remove this course as prerequisite
+            for (int next : graph.get(course)) {
+
+                indegree[next]--;
+
+                if (indegree[next] == 0) {
+                    queue.offer(next);
+                }
+            }
+        }
+
+        // If all courses were processed,
+        // there is no cycle
+        return count == numCourses;
+    }
+}
+
+"This is a directed graph cycle-detection problem that can be solved using topological sorting.
+I build an adjacency list from each prerequisite to its course and calculate the indegree of every course. 
+I put all courses with indegree zero into a queue and process them using BFS. For each processed course, I decrease the indegree of its neighboring courses.
+ When a neighbor reaches zero, I add it to the queue. 
+Finally, if I processed all numCourses, there is no cycle and I return true. Otherwise, a cycle exists and I return false."
+
+207 Course Schedule I
+        ↓
+Topological Sort
+        ↓
+BFS / Kahn's Algorithm
+        ↓
+Process courses
+        ↓
+count == numCourses ?
+      ↙       ↘
+    YES        NO
+     ↓          ↓
+   true       false
