@@ -1,0 +1,58 @@
+import java.util.*;
+
+class Solution{
+    public List<Integer> topologicalSort(int n, List<List<Integer>> graph){
+        // 0 = unvisited
+        // 1 = currently visiting
+        // 2 = completely visited
+        int[] state = new int[n];
+
+        List<Integer> result = new ArrayList<>();
+
+        for(int i=0;i<n;i++){
+            if(state[i] == 0){
+                if(hasCycle(graph, i, state, result)){
+                    return new ArrayList<>(); // Cycle detected, return empty list
+                }
+            }
+        }
+        Collections.reverse(result); // Reverse the result to get the correct topological order
+        return result;
+    }
+
+    private boolean hasCycle(List<List<Integer>> graph, int course, int[] state, List<Integer> result){
+        if(state[course] == 1){ // Currently in DFS path → cycle
+            return true;
+        }
+        if(state[course] == 2){ // Already completely processed
+            return false;
+        }
+
+        // Mark as currently visiting
+        state[course] = 1;
+
+        for(int next : graph.get(course)){
+            if(hasCycle(graph, next, state, result)){
+                return true;
+            }
+        }
+
+        // Completely processed
+        state[course] = 2;
+        result.add(course); // Add to result after processing all neighbors
+        return false;
+    }
+
+
+
+
+}
+
+//I use DFS for topological sorting. I maintain three states: 0 for unvisited, 1 for currently visiting, and 2 for completely visited. 
+//I mark a node as 1 before exploring its neighbors. 
+//If I encounter another node with state 1, there is a cycle. After all neighbors are processed, I mark the node as 2 and add it to the result. 
+//Since nodes are added after their neighbors, the result is in reverse topological order, so I reverse it at the end."
+
+//Time:  O(V + E)
+//Space: O(V + E)
+

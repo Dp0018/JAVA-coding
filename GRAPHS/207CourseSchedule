@@ -143,22 +143,22 @@ class Solution {
     }
 }
 
-"This is a directed graph cycle-detection problem that can be solved using topological sorting.
-I build an adjacency list from each prerequisite to its course and calculate the indegree of every course. 
-I put all courses with indegree zero into a queue and process them using BFS. For each processed course, I decrease the indegree of its neighboring courses.
- When a neighbor reaches zero, I add it to the queue. 
-Finally, if I processed all numCourses, there is no cycle and I return true. Otherwise, a cycle exists and I return false."
+//"This is a directed graph cycle-detection problem that can be solved using topological sorting.
+//I build an adjacency list from each prerequisite to its course and calculate the indegree of every course. 
+//I put all courses with indegree zero into a queue and process them using BFS. For each processed course, I decrease the indegree of its neighboring courses.
+// When a neighbor reaches zero, I add it to the queue. 
+//Finally, if I processed all numCourses, there is no cycle and I return true. Otherwise, a cycle exists and I return false."
 
-207 Course Schedule I
+//207 Course Schedule I
         ↓
-Topological Sort
+//Topological Sort
         ↓
-BFS / Kahn's Algorithm
+//BFS / Kahn's Algorithm
         ↓
-Process courses
+//Process courses
         ↓
-count == numCourses ?
-      ↙       ↘
-    YES        NO
-     ↓          ↓
-   true       false
+//count == numCourses ?
+  //    ↙       ↘
+   // YES        NO
+  //     ↓          ↓
+  // true       false
