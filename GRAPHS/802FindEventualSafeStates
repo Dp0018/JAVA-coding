@@ -92,8 +92,8 @@ Decrease outdegree
 
 //Building graph: O(V + E)
 //BFS:            O(V + E)
-Sorting:        O(V log V)
+//Sorting:        O(V log V)
 
-Total:          O(V + E + V log V)
+//Total:          O(V + E + V log V)
 
-Space:          O(V + E)
+//Space:          O(V + E)
