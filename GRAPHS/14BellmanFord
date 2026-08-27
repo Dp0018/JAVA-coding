@@ -1,0 +1,169 @@
+import java.util.*;
+
+class Solution {
+
+    public int[] bellmanFord(
+        int n,
+        int[][] edges,
+        int source
+    ) {
+
+        // Distance array
+        int[] dist = new int[n];
+
+        Arrays.fill(dist, Integer.MAX_VALUE);
+
+        // Source distance = 0
+        dist[source] = 0;
+
+        // Relax all edges V - 1 times.    A shortest path can have at most n - 1 edges if it doesn't contain a cycle.
+        for (int i = 1; i <= n - 1; i++) {
+
+            boolean updated = false;
+
+            for (int[] edge : edges) {
+
+                int u = edge[0];
+                int v = edge[1];
+                int weight = edge[2];
+
+                // Skip if u is unreachable
+                if (dist[u] == Integer.MAX_VALUE) {
+                    continue;
+                }
+
+                // Relaxation
+                if (dist[u] + weight < dist[v]) {
+
+                    dist[v] = dist[u] + weight;
+
+                    updated = true;
+                }
+            }
+
+            // No changes → already shortest
+            if (!updated) {
+                break;
+            }
+        }
+
+        // Check for negative cycle
+        for (int[] edge : edges) {
+
+            int u = edge[0];
+            int v = edge[1];
+            int weight = edge[2];
+
+            if (dist[u] != Integer.MAX_VALUE &&
+                dist[u] + weight < dist[v]) {
+
+                // Negative cycle exists
+                return new int[0];
+            }
+        }
+
+        return dist;
+    }
+}
+
+"Bellman-Ford is a single-source shortest path algorithm that works even when the graph contains negative edge weights. 
+I initialize the source distance to zero and all other distances to infinity. 
+Then I relax every edge V-1 times. 
+Relaxation means checking whether going through the current edge gives a shorter distance.
+ After these iterations, I perform one additional pass over all edges. 
+ If any distance can still be reduced, the graph contains a negative-weight cycle. 
+ Otherwise, the distance array contains the shortest paths."
+
+
+
+ Bellman-Ford
+   ↓
+Relax ALL edges
+   ↓
+V - 1 times
+   ↓
+Negative weights allowed
+   ↓
+Extra pass
+   ↓
+Detect negative cycle
+
+
+Dijkstra
+   ↓
+PriorityQueue
+   ↓
+Smallest distance first
+   ↓
+NO negative weights
+
+
+
+
+
+0 → 1 = 4
+0 → 2 = 5
+2 → 1 = -3
+
+Graph:
+
+       4
+   0 ─────→ 1
+   │
+  5│
+   ↓
+   2 ─────→ 1
+       -3
+
+We start from:
+
+source = 0
+
+The shortest path to 1 is actually:
+
+0 → 2 → 1
+
+5 + (-3) = 2
+
+So final answer should be:
+
+[0, 2, 5]
+
+
+
+Initialize:
+
+dist = [0, ∞, ∞]
+        ↓
+Relax ALL edges
+        ↓
+dist = [0, 2, 5]
+        ↓
+Relax ALL edges again
+        ↓
+dist = [0, 2, 5]
+        ↓
+No changes
+        ↓
+Stop
+        ↓
+Extra pass
+        ↓
+Can distance still decrease?
+      ↙        ↘
+    NO          YES
+     ↓            ↓
+  Answer      Negative Cycle
+
+
+  "I initialize the source distance to zero and all other distances to infinity.
+   Then I relax every edge V-1 times. 
+   For each edge u → v with weight w, I check whether dist[u] + w is smaller than dist[v]. 
+   If it is, I update dist[v]. 
+   After V-1 iterations, I make one additional pass over all edges.
+   If any distance can still be reduced, there is a negative-weight cycle. 
+   Otherwise, the distance array contains the shortest paths."
+
+
+   "Bellman-Ford has O(VE) time complexity because we relax all E edges V−1 times, plus one extra pass for negative-cycle detection. 
+   The auxiliary space complexity is O(V) because we maintain the distance array."
