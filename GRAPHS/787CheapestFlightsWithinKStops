@@ -1,0 +1,88 @@
+import java.util.*;
+
+class Solution {
+
+    public int findCheapestPrice(
+        int n,
+        int[][] flights,
+        int src,
+        int dst,
+        int k
+    ) {
+
+        int[] dist = new int[n];
+
+        Arrays.fill(dist, Integer.MAX_VALUE);
+
+        dist[src] = 0;
+
+        // At most k stops = k + 1 flights
+        for (int i = 0; i <= k; i++) {
+
+            int[] temp = dist.clone();
+
+            for (int[] flight : flights) {
+
+                int from = flight[0];
+                int to = flight[1];
+                int price = flight[2];
+
+                if (dist[from] == Integer.MAX_VALUE) {
+                    continue;
+                }
+
+                int newPrice = dist[from] + price;
+
+                if (newPrice < temp[to]) {
+                    temp[to] = newPrice;
+                }
+            }
+
+            dist = temp;
+        }
+
+        return dist[dst] == Integer.MAX_VALUE
+                ? -1
+                : dist[dst];
+    }
+}
+
+
+//"This is a shortest-path problem with an additional constraint on the number of stops.
+//  I use a Bellman-Ford style approach. 
+// Since at most k stops means at most k+1 flights, I relax all flights k+1 times.
+//  I use a temporary copy of the distance array in each iteration so that one iteration represents exactly one additional flight and newly updated values aren't reused in the same iteration. 
+// For every flight, I perform relaxation by checking whether dist[from] + price is cheaper than the current price for the destination. 
+// Finally, I return the cheapest price for the destination, or -1 if it remains unreachable."
+
+//Time:  O(K × E) V = number of cities E = number of flights
+
+//why dist.clone() is used? Because we want to make sure that in each iteration, we are only considering the distances from the previous iteration. If we were to update the dist array directly, we would be using updated values within the same iteration, which would not accurately represent the number of flights taken. By using a temporary array (temp), we ensure that each iteration only considers the distances from the previous iteration, effectively simulating the constraint of at most k stops.
+//We want each iteration to represent one additional flight.
+//We don't want an update made during the current iteration to immediately be used again during that same iteration.
+dist
+ ↓
+old information
+
+temp
+ ↓
+new information
+
+
+Think of it like this
+dist = OLD information
+        ↓
+   [0, ∞, ∞]
+
+temp = NEW information
+        ↓
+   [0, 100, ∞]
+
+After the round:
+
+dist = temp;
+
+becomes:
+
+dist = [0, 100, ∞]
+So clone() is used to prevent updates made in the current round from being immediately reused in that same round.
