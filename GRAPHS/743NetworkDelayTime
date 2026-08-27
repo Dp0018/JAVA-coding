@@ -1,0 +1,105 @@
+import java.util.*;
+
+class Solution {
+
+    public int networkDelayTime(
+        int[][] times,
+        int n,
+        int k
+    ) {
+
+        // Build adjacency list
+        List<List<int[]>> graph = new ArrayList<>();
+
+        for (int i = 0; i <= n; i++) {
+            graph.add(new ArrayList<>());
+        }
+
+        for (int[] time : times) {
+
+            int from = time[0];
+            int to = time[1];
+            int weight = time[2];
+
+            graph.get(from).add(
+                new int[]{to, weight}
+            );
+        }
+
+        // Shortest distance from k
+        int[] dist = new int[n + 1];
+
+        Arrays.fill(dist, Integer.MAX_VALUE);
+
+        dist[k] = 0;
+
+        // Min Heap: {node, distance}
+        PriorityQueue<int[]> pq =
+            new PriorityQueue<>(
+                (a, b) -> Integer.compare(a[1], b[1])
+            );
+
+        pq.offer(new int[]{k, 0});
+
+        while (!pq.isEmpty()) {
+
+            int[] current = pq.poll();
+
+            int node = current[0];
+            int distance = current[1];
+
+            // Ignore outdated entry
+            if (distance > dist[node]) {
+                continue;
+            }
+
+            // Visit neighbors
+            for (int[] edge : graph.get(node)) {
+
+                int next = edge[0];
+                int weight = edge[1];
+
+                int newDistance =
+                    distance + weight;
+
+                // Relaxation
+                if (newDistance < dist[next]) {
+
+                    dist[next] = newDistance;
+
+                    pq.offer(
+                        new int[]{
+                            next,
+                            newDistance
+                        }
+                    );
+                }
+            }
+        }
+
+        // Find the maximum shortest distance
+        int answer = 0;
+
+        for (int i = 1; i <= n; i++) {
+
+            if (dist[i] == Integer.MAX_VALUE) {
+                return -1;
+            }
+
+            answer = Math.max(answer, dist[i]);
+        }
+
+        return answer;
+    }
+}
+
+//"This is a single-source shortest-path problem with non-negative edge weights, so I'll use Dijkstra's algorithm. 
+// I build an adjacency list, maintain a distance array initialized to infinity, and set the source distance to zero.
+//  I use a min-heap PriorityQueue to always process the node with the smallest known distance. 
+// For every outgoing edge, I perform relaxation and update the neighbor's distance if I find a shorter path. 
+// After Dijkstra finishes, I find the maximum shortest distance because the signal must reach every node. 
+// If any node still has infinity as its distance, I return -1."
+
+
+Time:  O((V + E) log V)//adjacency list + PriorityQueue
+Space: O(V + E)
