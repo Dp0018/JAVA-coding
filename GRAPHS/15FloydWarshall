@@ -1,0 +1,36 @@
+Floyd-Warshall finds the shortest distance from every node to every other node.
+
+class Solution {
+
+    public void floydWarshall(int[][] dist) {.        // int[][] Because we need distance between every pair.
+
+        int n = dist.length;
+
+        for (int k = 0; k < n; k++) {                // Intermediate node
+
+            for (int i = 0; i < n; i++) {             // Source node
+
+                for (int j = 0; j < n; j++) {         // Destination node
+
+                    if (dist[i][k] != Integer.MAX_VALUE &&
+                        dist[k][j] != Integer.MAX_VALUE) {
+
+                        dist[i][j] = Math.min(
+                            dist[i][j],
+                            dist[i][k] + dist[k][j]
+                        );
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+//"Floyd-Warshall is an all-pairs shortest-path algorithm. 
+// I maintain a 2D distance matrix where dist[i][j] represents the shortest known distance from i to j. 
+// Then, for every node k, I consider it as an intermediate node and check whether going from i to k and then k to j is shorter than the current direct distance from i to j.
+//  The update formula is dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]). 
+// The time complexity is O(V³), and it supports negative edge weights.
+//  A negative diagonal value after the algorithm indicates a negative cycle."
