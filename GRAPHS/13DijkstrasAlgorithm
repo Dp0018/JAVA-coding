@@ -30,7 +30,7 @@ class Solution {
             int[] current = pq.poll();
 
             int node = current[0];                  // oth position node
-            int distance = current[1];              //1th position distnace
+            int distance = current[1];              //1th position
 
             // Ignore outdated entry ,This is used because the PriorityQueue can contain old/outdated distances. dist[1] = 10 and later discovered:dist[1] = 5  When [1,5] is processed, dist[1] is 5.Later [1,10] comes out.
             if (distance > dist[node]) {

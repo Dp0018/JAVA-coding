@@ -1,0 +1,85 @@
+import java.util.*;
+
+class Solution {
+
+    public int prims(int n, List<List<int[]>> graph) {
+
+        // {weight, node}
+        PriorityQueue<int[]> pq =
+            new PriorityQueue<>(
+                (a, b) -> Integer.compare(a[0], b[0])
+            );
+
+        boolean[] visited = new boolean[n];
+
+        // Start from node 0
+        pq.offer(new int[]{0, 0});
+
+        int totalCost = 0;
+        int edgesUsed = 0;
+
+        while (!pq.isEmpty() && edgesUsed < n) {
+
+            int[] current = pq.poll();
+
+            int weight = current[0];
+            int node = current[1];
+
+            // Already included in MST
+            if (visited[node]) {
+                continue;
+            }
+
+            // Add node to MST
+            visited[node] = true;
+
+            totalCost += weight;
+            edgesUsed++;
+
+            // Add all neighboring edges
+            for (int[] edge : graph.get(node)) {
+
+                int neighbor = edge[0];
+                int edgeWeight = edge[1];
+
+                if (!visited[neighbor]) {
+
+                    pq.offer(
+                        new int[]{
+                            edgeWeight,
+                            neighbor
+                        }
+                    );
+                }
+            }
+        }
+
+        return totalCost;
+    }
+}
+
+//"Prim's algorithm builds the MST by starting from any vertex and repeatedly choosing the minimum-weight edge that connects a visited vertex to an unvisited vertex. 
+// I use a min PriorityQueue to always get the cheapest available edge and a visited array to avoid adding a vertex more than once.
+//  I continue until all vertices are included."
+
+//With adjacency list + PriorityQueue:
+
+Time:  O(E log V)
+Space: O(V + E)
+
+//"I start from any node and maintain a visited array and a min-heap.
+//  The priority queue stores {weight, node} and always gives me the minimum-weight available edge. 
+// I take the edge if its destination hasn't been visited, mark that node as visited, add its weight to the MST cost, and then add all of its unvisited neighboring edges to the priority queue.
+//  I continue until all vertices are included."
+
+//Start node
+     ↓
+PriorityQueue
+     ↓
+Cheapest edge
+     ↓
+Unvisited node
+     ↓
+Add to MST
+     ↓
+Repeat
