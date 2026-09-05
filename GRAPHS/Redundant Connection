@@ -49,4 +49,4 @@ class Solution {
 }
 
 // Time Complexity: O(n * α(n)), where n is the number of edges and α is the inverse Ackermann function, which grows very slowly. In practice, it can be considered nearly constant time for all reasonable input sizes.
-//space Complexity: O(n), where n is the number of edges, for storing the parent array.and
+//space Complexity: O(n), where n is the number of edges, for storing the parent array.
