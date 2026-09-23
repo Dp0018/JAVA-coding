@@ -69,5 +69,5 @@ class Solution {
 //time complexity: O(N + E) where N is the number of nodes and E is the number of edges in the graph. This is because we visit each node and edge once during the DFS traversal.
 //space complexity: O(N) where N is the number of nodes in the graph. This is because we store the visited array and the recursion stack in the worst case.
 //time complexity: O(N + E) where N is the number of nodes and E is the number of edges in the graph. This is because we visit each node and edge once during the DFS traversal.
-
+//space complexity: O(N) where N is the number of nodes in the graph. This is because we store the visited array and the recursion stack in the worst case.
 
