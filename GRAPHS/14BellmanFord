@@ -169,3 +169,4 @@ Can distance still decrease?
    The auxiliary space complexity is O(V) because we maintain the distance array."
 
    time complexity: O(VE) where V is the number of vertices and E is the number of edges in the graph. This is because we relax all E edges V−1 times, plus one extra pass for negative-cycle detection.
+    space complexity: O(V) where V is the number of vertices in the graph. This
