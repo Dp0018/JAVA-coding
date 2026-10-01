@@ -56,3 +56,5 @@ class Solution {
         return dummy.next;
     }
 }
+//Time Complexity: O(n log n) where n is the number of nodes in the linked list. We are dividing the list into halves and merging them back.
+//Space Complexity: O(log n) due to recursive stack space used for sorting the linked list
