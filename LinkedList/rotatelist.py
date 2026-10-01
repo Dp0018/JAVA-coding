@@ -33,3 +33,6 @@ class Solution:
         new_tail.next = None
 
         return new_head
+    
+    //Time Complexity: O(n) where n is the number of nodes in the linked list. We traverse the list a constant number of times.
+    //Space Complexity: O(1) as we are not using any extra space.
