@@ -41,3 +41,5 @@ class Solution {
         
     }
 }
+//Time Complexity: O(n) where n is the number of nodes in the linked list. We traverse the list a constant number of times.
+//Space Complexity: O(k) where k is the number of parts we are splitting the linked
