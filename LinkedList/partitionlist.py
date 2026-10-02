@@ -24,3 +24,5 @@ class Solution:
 
         return small_dummy.next
     
+    //Time Complexity: O(n) where n is the number of nodes in the linked list. We traverse the list once.
+    //Space Complexity: O(1) as we are not using any extra space.
