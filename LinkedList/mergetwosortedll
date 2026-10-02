@@ -32,3 +32,6 @@ class Solution {
         return dummy.next;
     }
 }
+
+//Time Complexity: O(n + m) where n and m are the number of nodes in the two linked lists. We traverse both lists once.
+//Space Complexity: O(1) as we are not using any extra space.
