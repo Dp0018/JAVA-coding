@@ -24,3 +24,5 @@ ll.head.next.next = Node(3)
 ll.head.next.next.next = Node(4)
 ll.head.next.next.next.next = Node(5)
 ll.middle()
+
+// Output: Middle element is: 3
