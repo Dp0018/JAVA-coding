@@ -21,3 +21,6 @@ class Solution:
         slow.next = slow.next.next
 
         return dummy.next
+    
+    // Time Complexity: O(n)
+    // Space Complexity: O(1)
