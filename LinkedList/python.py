@@ -59,3 +59,6 @@ if __name__ == "__main__":
     ll.display()
 
     print("Length of Linked List =", ll.length())
+    
+    // Time Complexity: O(n)
+    // Space Complexity: O(1)
