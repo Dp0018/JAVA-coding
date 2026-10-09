@@ -26,3 +26,6 @@ class Solution:
             tail = tail.next
 
         return dummy.next
+    
+    //time complexity: O(max(n, m)) where n and m are the lengths of the two linked lists
+    //space complexity: O(max(n, m)) for the new linked list created to store
