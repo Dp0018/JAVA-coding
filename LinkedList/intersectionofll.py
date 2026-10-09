@@ -12,3 +12,6 @@ class Solution:
             p2 = headA if p2 is None else p2.next
 
         return p1
+    
+    //time complexity: O(n + m) where n and m are the lengths of the two linked lists
+    //space complexity: O(1) since we are using only two pointers and no additional data structures
