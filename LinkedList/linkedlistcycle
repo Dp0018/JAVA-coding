@@ -87,3 +87,5 @@ public class Main {
         }
     }
 }
+//Time Complexity: O(n) - where n is the number of nodes in the linked list. In the worst case, we may have to traverse all nodes to detect a cycle.
+//Space Complexity: O(1) - We are using only two pointers (slow and fast) to detect the cycle, so the space complexity is constant.
