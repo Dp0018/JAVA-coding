@@ -23,3 +23,6 @@ class Solution {
         return head;
     }
 }
+
+//Time Complexity: O(n) - where n is the number of nodes in the linked list. We traverse the list once.
+//Space Complexity: O(1) - We are using only a constant amount of extra space
