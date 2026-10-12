@@ -29,3 +29,6 @@ class Solution:
             tail.next = list2
 
         return dummy.next
+    
+    //time complexity: O(n + m) where n and m are the lengths of the two linked lists
+    
