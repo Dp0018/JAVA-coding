@@ -31,4 +31,5 @@ class Solution:
         return dummy.next
     
     //time complexity: O(n + m) where n and m are the lengths of the two linked lists
+    //space complexity: O(1) since we are not using any extra space for the merged list
     
