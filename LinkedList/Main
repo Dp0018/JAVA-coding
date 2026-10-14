@@ -60,3 +60,4 @@ public class Main {
         System.out.println("Length of the linked list: " + list.length()); // Output: Length of the linked list: 3
     }
 }
+// Time Complexity: O(n) for insert, O(n) for length, O(n) for display
