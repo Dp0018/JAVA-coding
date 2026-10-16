@@ -112,4 +112,6 @@ public void deleteLast(){
     }
     secondLast.next = null;
 }
+//time complexity: O(n)
+//Space complexity : O(n)
 
