@@ -32,3 +32,6 @@ class Solution {
         return dummy.next;
     }
 }
+
+//Time Complexity: O(max(m, n)), where m and n are the lengths of the two linked lists. We traverse both lists once, so the time complexity is linear with respect to the length of the longer list.
+//Space Complexity: O(max(m, n)), as we create a new linked list to store the result, which can have at most max(m, n) + 1 nodes.
