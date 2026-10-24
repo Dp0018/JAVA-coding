@@ -52,3 +52,4 @@ public class Main {
     }
 }
 //this code defines a simple linked list and a method to find the nth node from the end of the list. The `nthNodeFromEnd` method uses two pointers (fast and slow) to traverse the list. The fast pointer is moved n nodes ahead first, and then both pointers are moved together until the fast pointer reaches the end of the list. At that point, the slow pointer will be at the nth node from the end. 
+//the example usage creates a linked list with three nodes and calls the `nthNodeFromEnd` method to find the 2nd node from the end, which is 2.
