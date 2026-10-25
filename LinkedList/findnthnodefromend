@@ -55,3 +55,4 @@ public class Main {
 //the example usage creates a linked list with three nodes and calls the `nthNodeFromEnd` method to find the 2nd node from the end, which is 2.
 //time complexity of this approach is O(n), where n is the number of nodes in the linked list, and the space complexity is O(1) since we are using only a constant amount of extra space for the pointers.
 //space complexity is O(1) since we are using only a constant amount of extra space for the pointers.
+//it is important to handle edge cases, such as when the linked list is empty or when n is greater than the number of nodes in the list. The code includes checks for these scenarios and provides appropriate messages.
