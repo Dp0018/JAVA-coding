@@ -26,3 +26,4 @@ public class Solution {
 }
 //time complexity: O(n + m) where n and m are the lengths of the two linked lists
 //space complexity: O(1) since we are using only two pointers and no additional data structures
+//This implementation is efficient and handles various cases effectively. It ensures that both pointers traverse the same number of nodes, allowing them to meet at the intersection point if one exists.
