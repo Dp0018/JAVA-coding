@@ -33,3 +33,4 @@ class Solution {
         return smallDummy.next;
     }
 }
+//Time Complexity: O(n), where n is the number of nodes in the linked list. We traverse the list once, so the time complexity is linear.
