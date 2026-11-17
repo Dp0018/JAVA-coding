@@ -1,3 +1,4 @@
+
 //linkedlist cycle
 class Node:
     def __init__(self, data):
@@ -64,6 +65,8 @@ if ll.has_cycle():
     print("Cycle Detected")
 else:
     print("No Cycle")
-    // Time Complexity: O(n) where n is the number of nodes in the linked list. We traverse the list once.
-    // Space Complexity: O(1) as we are not using any extra space.
-    // This implementation is efficient and handles various cases effectively. It ensures that both pointers traverse the same number of nodes, allowing them to meet at the cycle point if one exists.
+    
+    
+    
+    ##time complexity is O(n) and space complexity is O(1)
+    
